@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <title>snake</title>
+   
+   
+  </head>
+  
+  <body>
+	<canvas id="myCanvas" width="500" height="500" style="border:1px solid #000000;"></canvas>
+	<script>
+	
+		function drawSquare(_context, outline, fill, position){	
+			_context.fillStyle = fill;
+			_context.strokeStyle = outline;
+			_context.fillRect(position.x, position.y, 20, 20);
+			_context.strokeRect(position.x, position.y, 20, 20);		
+		}
+		function drawSnake(_snake){	
+			var i;
+			for(i=0;i<_snake.length;i++){
+				drawSquare(context, "dark green", "light green", _snake[i]);		
+			  }
+		}
+		function clearCanvas(_context, _canvas, _colour) {
+		  _context.fillStyle = _colour;
+		  _context.strokeStyle = "black";
+
+		  _context.fillRect(0, 0, _canvas.width, _canvas.height);
+		  _context.strokeRect(0, 0, _canvas.width, _canvas.height);
+		}
+		
+		function updateSnake(_snake){	
+			var newx = _snake[0].x + dx;
+			if (newx > 500)newx=0;
+			if (newx < 0)newx=500;			
+			var newy = _snake[0].y + dy;
+			if (newy > 500)newy=0;
+			if (newy < 0)newy=500;
+			var newhead = {x:newx,y:newy};
+			_snake.unshift(newhead);
+			_snake.pop();	
+		}
+		function keyHandler(event){
+
+			var keyPress = event.keyCode;
+		
+			switch(keyPress)
+			{
+				//Left pressed
+				case 37:
+					if (dx >= 0){
+						dx = -20;
+						dy = 0;				
+					};
+					break;
+
+				//Down pressed
+				case 38:
+					if (dy >= 0){
+						dx = 0;
+						dy = -20;				
+					};
+					break;
+				//Right pressed
+				case 39:
+					if (dx <= 0){
+						dx = 20;
+						dy = 0;				
+					};
+					break;
+				//Up pressed
+				case 40:
+					if (dy <= 0){
+						dx = 0;
+						dy = 20;				
+					};
+					break;
+
+				default:
+				}
+		}
+		
+		function getCryptoData(){
+		
+		
+		
+		
+		}
+		
+		test_colour = "#000000";
+		
+		var dx = 0;
+		var dy = 0;
+		document.addEventListener("keydown",keyHandler);
+		var canvas = document.getElementById("myCanvas");
+		var context = canvas.getContext("2d");
+		
+		clearCanvas(context, canvas, "white");
+		
+		var snake = [{x:250,y:250},
+				     {x:260,y:250},
+					 {x:270,y:250},
+					 {x:280,y:250}];
+		getCryptoData();			 
+		setInterval(game,100);
+		function game(){	
+			clearCanvas(context, canvas,"white");
+			//check key presses
+			//calculate new snake position (wrap check)
+			updateSnake(snake);
+			//check for apple overlap (increment score, relocate apple)
+			//Draw snake + apple
+			
+			drawSnake(snake);
+	    }
+	
+
+	</script>
+  </body>
+</html>
+
+
